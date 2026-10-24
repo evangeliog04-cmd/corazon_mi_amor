@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2b1d3a">
+<title>De tu osito para mi chinita ♥</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --script: 'Dancing Script', 'Brush Script MT', cursive;
+    --mano: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
+    --rosa: #ff6f9a; --rosa2: #ffc2d1; --miel: #ffc65c;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  html { overflow-x: hidden; }
+  body {
+    background: linear-gradient(180deg, #2b1d3a 0%, #6a3d5e 48%, #e7926f 100%) fixed;
+    color: #fff; font-family: var(--mano); overflow: hidden;
+    -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; touch-action: manipulation;
+  }
+
+  /* ---------- fondo ---------- */
+  #stars, #luces, #fx { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+  #stars { z-index: 0; } #luces { z-index: 1; } #fx { z-index: 7; }
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle ease-in-out infinite; }
+  @keyframes twinkle { 0%, 100% { opacity: .15; } 50% { opacity: 1; } }
+  .luna { position: fixed; z-index: 0; top: calc(34px + env(safe-area-inset-top, 0px)); right: 8vw; width: 64px; height: 64px; border-radius: 50%; background: #fff3d6; box-shadow: 0 0 40px 12px rgba(255, 240, 200, .45); transition: transform 1.2s ease, box-shadow 1.2s ease; }
+  .luna::after { content: ''; position: absolute; left: 14px; top: 16px; width: 12px; height: 12px; border-radius: 50%; background: rgba(210, 190, 150, .45); box-shadow: 22px 20px 0 -2px rgba(210, 190, 150, .4); }
+  body.noche .luna { transform: scale(1.35); box-shadow: 0 0 70px 22px rgba(255, 240, 200, .5); }
+  #oscuro { position: fixed; inset: 0; z-index: 1; background: rgba(4, 8, 36, .6); opacity: 0; transition: opacity 1.4s ease; pointer-events: none; }
+  body.noche #oscuro { opacity: 1; }
+  .luz { position: absolute; width: 7px; height: 7px; border-radius: 50%; background: #ffe2a8; box-shadow: 0 0 14px 4px rgba(255, 200, 120, .7); animation: flota ease-in-out infinite alternate; }
+  @keyframes flota { from { transform: translate(0, 0); opacity: .2; } to { transform: translate(var(--dx), var(--dy)); opacity: .95; } }
+  .colina { position: fixed; z-index: 2; left: -25vw; width: 150vw; border-radius: 50%; pointer-events: none; }
+  .c1 { bottom: -20vh; height: 34vh; background: #3a4a3a; }
+  .c2 { bottom: -24vh; height: 34vh; left: -5vw; background: #2c3a2e; }
+  .flores { position: fixed; z-index: 3; left: 0; right: 0; bottom: calc(6px + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: space-around; padding: 0 4vw; }
+  .flor { font-size: 32px; cursor: pointer; transition: transform .2s; transform-origin: bottom; background: none; border: 0; padding: 0; line-height: 1; }
+  .flor:active { transform: scale(1.4) rotate(8deg); }
+
+  .fugaz { position: fixed; z-index: 1; width: 130px; height: 2px; background: linear-gradient(90deg, rgba(255, 255, 255, 0), #fff); border-radius: 2px; box-shadow: 0 0 10px #fff; transform: rotate(28deg); opacity: 0; animation: fugaz 1.5s ease-in forwards; pointer-events: none; }
+  @keyframes fugaz { 0% { opacity: 0; transform: translate(0, 0) rotate(28deg); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(60vw, 32vw) rotate(28deg); } }
+
+  /* ---------- efectos al tocar ---------- */
+  .burst, .chispa { position: fixed; pointer-events: none; animation: burst 1s ease-out forwards; z-index: 8; }
+  .burst { font-size: 22px; }
+  .chispa { width: 6px; height: 6px; border-radius: 50%; }
+  @keyframes burst { from { transform: translate(-50%, -50%) scale(.4); opacity: 1; } to { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2); opacity: 0; } }
+  .pop { position: fixed; z-index: 9; pointer-events: none; font-family: var(--script); font-weight: 700; font-size: 28px; color: #fff; text-shadow: 0 0 12px #ff5c8a, 0 0 4px #7a1f4a; white-space: nowrap; animation: popt 2.2s ease-out forwards; }
+  @keyframes popt { 0% { transform: translate(-50%, -50%) scale(.5); opacity: 0; } 15% { transform: translate(-50%, -80%) scale(1.15); opacity: 1; } 100% { transform: translate(-50%, -260%) scale(1); opacity: 0; } }
+  #globos { position: fixed; inset: 0; z-index: 6; pointer-events: none; overflow: hidden; }
+  .globo { position: absolute; bottom: -80px; pointer-events: auto; cursor: pointer; line-height: 1; animation: sube linear forwards; filter: drop-shadow(0 0 10px rgba(255, 200, 100, .6)); }
+  @keyframes sube { from { transform: translate(0, 0) rotate(-6deg); } 50% { transform: translate(calc(var(--sway) * -1), -60vh) rotate(6deg); } to { transform: translate(var(--sway), -118vh) rotate(-6deg); } }
+
+  /* ---------- entrada ---------- */
+  #splash { position: fixed; inset: 0; z-index: 20; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; cursor: pointer; background: linear-gradient(180deg, #1d1230 0%, #4a2a52 60%, #8a4a5c 100%); transition: opacity 1s ease, visibility 1s; text-align: center; padding: 20px; }
+  #splash.out { opacity: 0; visibility: hidden; }
+  .sp-oso { font-size: 110px; line-height: 1; animation: saltito 1.6s ease-in-out infinite; filter: drop-shadow(0 0 24px rgba(255, 190, 120, .55)); }
+  @keyframes saltito { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-14px) rotate(4deg); } }
+  #splash h2 { margin: 0; font-family: var(--script); font-size: clamp(32px, 9vw, 46px); color: var(--rosa2); }
+  #splash p { margin: 0; font-size: 26px; color: rgba(255, 230, 235, .9); animation: suave 2.2s ease-in-out infinite; }
+  @keyframes suave { 0%, 100% { opacity: .45; } 50% { opacity: 1; } }
+
+  /* ---------- escena ---------- */
+  #scene { position: relative; z-index: 4; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 14px calc(62px + env(safe-area-inset-bottom, 0px)); gap: 6px; opacity: 0; visibility: hidden; transition: opacity 1.2s ease; }
+  #scene.on { opacity: 1; visibility: visible; }
+  h1 { margin: 0; font-family: var(--script); font-weight: 700; font-size: clamp(34px, 10vw, 54px); line-height: 1.1; text-align: center; background: linear-gradient(90deg, #ffd0df, #fff3d6, #ffb3c9); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { margin: -2px 0 4px; font-size: 24px; color: var(--rosa2); }
+
+  .bubble { position: relative; max-width: min(90vw, 420px); min-height: 70px; padding: 12px 20px; border-radius: 24px; background: #fff8ec; color: #6b3a3a; font-size: clamp(22px, 5.6vw, 27px); line-height: 1.2; text-align: center; box-shadow: 0 8px 26px rgba(0, 0, 0, .35); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  .bubble::after { content: ''; position: absolute; bottom: -14px; left: 50%; margin-left: -14px; border: 14px solid transparent; border-top-color: #fff8ec; border-bottom: 0; }
+
+  #bearwrap { position: relative; width: min(66vw, 270px); cursor: pointer; }
+  #bear { width: 100%; height: auto; display: block; overflow: visible; filter: drop-shadow(0 8px 12px rgba(0, 0, 0, .3)); transform: scale(0); }
+  #scene.on #bear { animation: aparece 1.1s cubic-bezier(.2, 1.6, .4, 1) .3s forwards; }
+  @keyframes aparece { from { transform: scale(0) rotate(-12deg); } to { transform: scale(1) rotate(0); } }
+  .cuerpo { transform-origin: 150px 335px; animation: respira 3.2s ease-in-out infinite; }
+  @keyframes respira { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.012, 1.03); } }
+  .cabeza { transform-origin: 150px 200px; animation: ladea 5s ease-in-out infinite alternate; }
+  @keyframes ladea { from { transform: rotate(-2.2deg); } to { transform: rotate(2.2deg); } }
+  .brazo { transition: transform .55s cubic-bezier(.3, 1.4, .5, 1); }
+  .izq { transform-origin: 96px 215px; } .der { transform-origin: 204px 215px; }
+  #bear.hug .izq { transform: rotate(-48deg); } #bear.hug .der { transform: rotate(48deg); }
+  #bear.hug .cuerpo { animation: apreta .5s ease-in-out 3; }
+  @keyframes apreta { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07, .95); } }
+  #bear.wave .der { animation: saluda .45s ease-in-out infinite alternate; }
+  @keyframes saluda { from { transform: rotate(-98deg); } to { transform: rotate(-140deg); } }
+  #bear.salta .cuerpo { animation: salto .6s ease-out; }
+  @keyframes salto { 0% { transform: scale(1); } 25% { transform: scale(1.1, .88); } 55% { transform: translateY(-16px) scale(.95, 1.08); } 100% { transform: scale(1); } }
+  .eyes { transform-origin: 150px 110px; transition: transform .12s ease; }
+  #bear.blink .eyes, #bear.dorm .eyes { transform: scaleY(.08); }
+  .latido { transform-origin: 150px 262px; animation: lat 1.5s ease-in-out infinite; }
+  @keyframes lat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.16); } 30% { transform: scale(1); } 45% { transform: scale(1.09); } }
+  .zzz { position: absolute; right: 2%; top: 4%; font-family: var(--script); font-size: 34px; color: #cfe0ff; opacity: 0; pointer-events: none; }
+  body.noche .zzz { animation: zz 2.6s ease-in-out infinite; }
+  @keyframes zz { 0% { opacity: 0; transform: translate(0, 10px) scale(.7); } 30% { opacity: 1; } 100% { opacity: 0; transform: translate(14px, -34px) scale(1.2); } }
+  .miel-f { position: absolute; left: 50%; top: 30%; font-size: 54px; pointer-events: none; animation: miel 1.6s ease-in-out forwards; }
+  @keyframes miel { 0% { transform: translate(-50%, 40px) scale(.3); opacity: 0; } 25% { transform: translate(-50%, -20px) scale(1.1); opacity: 1; } 70% { transform: translate(-50%, 20px) scale(.8); opacity: 1; } 100% { transform: translate(-50%, 40px) scale(.2); opacity: 0; } }
+
+  .cnt { font-size: 24px; color: var(--rosa2); margin-top: 4px; min-height: 28px; }
+  .botones { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 4px; }
+  .btn { width: 62px; height: 62px; border-radius: 50%; font-size: 30px; line-height: 1; background: rgba(255, 255, 255, .13); border: 1px solid rgba(255, 220, 190, .5); cursor: pointer; transition: transform .15s, background .2s; color: #fff; }
+  .btn:active { transform: scale(.82) rotate(-8deg); background: rgba(255, 194, 150, .35); }
+  .btn small { display: block; font-family: var(--mano); font-size: 13px; margin-top: 2px; }
+</style>
+</head>
+<body>
+  <div id="stars"></div>
+  <div class="luna"></div>
+  <div id="oscuro"></div>
+  <div id="luces"></div>
+  <div class="colina c1"></div><div class="colina c2"></div>
+  <div class="flores">
+    <button class="flor" aria-label="Flor">🌼</button><button class="flor" aria-label="Flor">🌷</button><button class="flor" aria-label="Flor">🌻</button>
+    <button class="flor" aria-label="Flor">🌸</button><button class="flor" aria-label="Flor">🌼</button>
+  </div>
+  <div id="fx"></div>
+  <div id="globos"></div>
+
+  <div id="splash">
+    <div class="sp-oso">🧸</div>
+    <h2>Un osito tiene algo<br>para su chinita</h2>
+    <p>Toca para abrir</p>
+  </div>
+
+  <main id="scene">
+    <h1 id="titulo"></h1>
+    <div class="sub">de tu osito ♥</div>
+    <div class="bubble" id="bubble"></div>
+
+    <div id="bearwrap">
+      <svg id="bear" viewBox="0 0 300 350" role="img" aria-label="Osito">
+        <ellipse cx="150" cy="338" rx="100" ry="11" fill="rgba(0,0,0,.28)"/>
+        <g class="cuerpo">
+          <!-- pies -->
+          <ellipse cx="108" cy="322" rx="32" ry="20" fill="#a96a3c"/><ellipse cx="192" cy="322" rx="32" ry="20" fill="#a96a3c"/>
+          <ellipse cx="108" cy="326" rx="17" ry="10" fill="#e7b48a"/><ellipse cx="192" cy="326" rx="17" ry="10" fill="#e7b48a"/>
+          <!-- cuerpo -->
+          <ellipse cx="150" cy="255" rx="82" ry="76" fill="#b87444"/>
+          <ellipse cx="150" cy="266" rx="54" ry="54" fill="#f1cfa4"/>
+          <!-- corazón en la pancita -->
+          <g class="latido">
+            <g transform="translate(127 241) scale(1.45)"><path fill="#ff5c8a" d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></g>
+            <text x="150" y="271" text-anchor="middle" font-size="22" font-family="Dancing Script, cursive" font-weight="700" fill="#fff">L</text>
+          </g>
+          <!-- brazos -->
+          <g class="brazo izq"><ellipse cx="74" cy="248" rx="20" ry="43" fill="#a96a3c" transform="rotate(12 74 248)"/><ellipse cx="68" cy="284" rx="11" ry="8" fill="#e7b48a"/></g>
+          <g class="brazo der"><ellipse cx="226" cy="248" rx="20" ry="43" fill="#a96a3c" transform="rotate(-12 226 248)"/><ellipse cx="232" cy="284" rx="11" ry="8" fill="#e7b48a"/></g>
+          <!-- bufanda -->
+          <path d="M92 196 Q150 226 208 196 L212 214 Q150 244 88 214Z" fill="#e8708f"/>
+          <path d="M178 224 L196 262 L174 266 L162 232Z" fill="#d85a7f"/>
+        </g>
+        <g class="cabeza">
+          <circle cx="68" cy="68" r="32" fill="#a96a3c"/><circle cx="232" cy="68" r="32" fill="#a96a3c"/>
+          <circle cx="68" cy="70" r="18" fill="#e7b48a"/><circle cx="232" cy="70" r="18" fill="#e7b48a"/>
+          <ellipse cx="150" cy="125" rx="98" ry="88" fill="#b87444"/>
+          <ellipse cx="150" cy="152" rx="44" ry="33" fill="#f1cfa4"/>
+          <circle cx="86" cy="142" r="14" fill="#ff8fa3" opacity=".55"/><circle cx="214" cy="142" r="14" fill="#ff8fa3" opacity=".55"/>
+          <g class="eyes"><g id="look">
+            <circle cx="110" cy="108" r="11" fill="#2b1a12"/><circle cx="106.5" cy="104" r="3.8" fill="#fff"/>
+            <circle cx="190" cy="108" r="11" fill="#2b1a12"/><circle cx="186.5" cy="104" r="3.8" fill="#fff"/>
+          </g></g>
+          <ellipse cx="150" cy="136" rx="15" ry="10.5" fill="#3d2418"/><ellipse cx="145" cy="132" rx="4.5" ry="2.6" fill="#fff" opacity=".55"/>
+          <path d="M150 146 v8 M150 154 q-10 10 -22 3 M150 154 q10 10 22 3" fill="none" stroke="#3d2418" stroke-width="3.2" stroke-linecap="round"/>
+        </g>
+      </svg>
+      <div class="zzz">z z z</div>
+    </div>
+
+    <div class="cnt" id="cnt">&nbsp;</div>
+    <div class="botones">
+      <button class="btn" id="bAbrazo" aria-label="Abrazo">🤗</button>
+      <button class="btn" id="bMiel" aria-label="Miel">🍯</button>
+      <button class="btn" id="bMsg" aria-label="Mensaje">💌</button>
+      <button class="btn" id="bDeseo" aria-label="Deseo">⭐</button>
+      <button class="btn" id="bNoche" aria-label="Buenas noches">🌙</button>
+    </div>
+  </main>
+
+<script>
+  /* ============ PERSONALIZA AQUÍ ============ */
+  var APODO = 'mi chinita';
+  var MENSAJES = [
+    'Hola, ' + APODO + '. Soy tu osito.',
+    'Vine a decirte que eres lo mejor que tengo.',
+    'Nunca dudes que te pongo a ti por encima de todo.',
+    'Te amo y te quiero bastante, ' + APODO + '.',
+    'Te amo igual cuando estás enojada, amor.',
+    'Todos los días me esfuerzo por hacerte feliz.',
+    'Perdón si a veces fallo. Nunca es mi intención.',
+    'Tú eres la razón por la que siempre soy feliz.'
+  ];
+  var FRASES = ['Mi chinita ♥', 'Tu osito te ama', 'Eres lo mejor que tengo', 'Siempre tú', 'Te amo, mi chinita', 'Mi razón de ser feliz', 'Abrazo de oso 🧸'];
+  var NOTAS = ['Eres lo mejor que tengo, mi chinita', 'Contigo todo es mejor', 'Tu osito siempre va a estar aquí', 'Te pongo a ti por encima de todo', 'Cada día me esfuerzo por verte feliz'];
+  /* ========================================== */
+
+  var $ = function (id) { return document.getElementById(id); };
+  var rnd = function (a, b) { return a + Math.random() * (b - a); };
+  var pick = function (a) { return a[Math.floor(Math.random() * a.length)]; };
+  var EMO = ['♥', '❤️', '💗', '💖', '🧸', '💛'];
+  var COL = ['#ff6f9a', '#ffb3c9', '#ffd9a8', '#ffc65c', '#ffffff'];
+  $('titulo').textContent = 'Para ' + APODO;
+
+  (function () {
+    for (var i = 0; i < 60; i++) {
+      var s = document.createElement('div'), t = rnd(1, 2.6);
+      s.className = 'star';
+      s.style.cssText = 'left:' + rnd(0, 100) + '%;top:' + rnd(0, 55) + '%;width:' + t + 'px;height:' + t + 'px;animation-duration:' + rnd(3, 7) + 's;animation-delay:' + rnd(0, 5) + 's';
+      $('stars').appendChild(s);
+    }
+    for (var j = 0; j < 14; j++) {
+      var l = document.createElement('div');
+      l.className = 'luz';
+      l.style.cssText = 'left:' + rnd(0, 100) + '%;top:' + rnd(35, 95) + '%;animation-duration:' + rnd(4, 9) + 's;animation-delay:' + rnd(0, 4) + 's;--dx:' + rnd(-50, 50) + 'px;--dy:' + rnd(-70, 30) + 'px';
+      $('luces').appendChild(l);
+    }
+  })();
+
+  var ac = null;
+  function latido() {
+    try {
+      ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+      var n = ac.currentTime;
+      [[0, 90], [0.2, 75]].forEach(function (b) {
+        var o = ac.createOscillator(), g = ac.createGain(), t = n + b[0];
+        o.type = 'sine'; o.frequency.setValueAtTime(b[1], t); o.frequency.exponentialRampToValueAtTime(40, t + 0.18);
+        g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.45, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.24);
+        o.connect(g); g.connect(ac.destination); o.start(t); o.stop(t + 0.26);
+      });
+    } catch (e) {}
+  }
+
+  function burst(x, y, n) {
+    for (var i = 0; i < (n || 8); i++) {
+      var b = document.createElement('div'), a = rnd(0, 6.283), d = rnd(50, 130);
+      b.className = 'burst'; b.textContent = pick(EMO); b.style.left = x + 'px'; b.style.top = y + 'px';
+      b.style.setProperty('--dx', Math.cos(a) * d + 'px'); b.style.setProperty('--dy', Math.sin(a) * d + 'px');
+      document.body.appendChild(b); setTimeout(function (el) { el.remove(); }.bind(null, b), 1100);
+    }
+  }
+  function chispas(x, y, n, col) {
+    for (var i = 0; i < n; i++) {
+      var c = document.createElement('div'), a = (6.283 / n) * i, d = rnd(60, 120);
+      c.className = 'chispa'; c.style.left = x + 'px'; c.style.top = y + 'px';
+      c.style.background = col || pick(COL); c.style.boxShadow = '0 0 8px ' + (col || '#ffb3c9');
+      c.style.setProperty('--dx', Math.cos(a) * d + 'px'); c.style.setProperty('--dy', Math.sin(a) * d + 'px');
+      document.body.appendChild(c); setTimeout(function (el) { el.remove(); }.bind(null, c), 1100);
+    }
+  }
+  function frase(x, y, txt) {
+    var p = document.createElement('div');
+    p.className = 'pop'; p.textContent = txt;
+    p.style.left = Math.min(Math.max(x, 110), window.innerWidth - 110) + 'px'; p.style.top = y + 'px';
+    document.body.appendChild(p); setTimeout(function () { p.remove(); }, 2300);
+  }
+
+  // burbuja con máquina de escribir
+  var token = 0;
+  function decir(txt) {
+    var my = ++token, i = 0, b = $('bubble');
+    b.textContent = '';
+    (function paso() {
+      if (my !== token) return;
+      if (i < txt.length) { var c = txt.charAt(i++); b.textContent += c; setTimeout(paso, 28 + (/[,.]/.test(c) ? 130 : 0)); }
+    })();
+  }
+  var idx = 0;
+  function siguiente() { decir(MENSAJES[idx % MENSAJES.length]); idx++; }
+
+  // el osito
+  var bear = $('bear');
+  function clase(c, ms) { bear.classList.add(c); setTimeout(function () { bear.classList.remove(c); }, ms); }
+  function centro() { var r = bear.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height * 0.6 }; }
+
+  $('bearwrap').addEventListener('click', function () {
+    var c = centro(); latido(); clase('salta', 650); burst(c.x, c.y - 40, 8); siguiente();
+  });
+  // ojitos que siguen el dedo
+  document.addEventListener('pointermove', function (e) {
+    var r = bear.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height * 0.35;
+    var dx = e.clientX - cx, dy = e.clientY - cy, d = Math.max(1, Math.hypot(dx, dy)), m = Math.min(5, d / 40);
+    $('look').style.transform = 'translate(' + (dx / d * m).toFixed(1) + 'px,' + (dy / d * m).toFixed(1) + 'px)';
+  });
+  // parpadeo
+  (function parpadea() {
+    if (!document.body.classList.contains('noche')) clase('blink', 140);
+    setTimeout(parpadea, rnd(2200, 5200));
+  })();
+
+  var abrazos = 0, noche = false;
+  $('bAbrazo').addEventListener('click', function () {
+    abrazos++; latido(); clase('hug', 2200);
+    var c = centro(); burst(c.x, c.y, 10); chispas(c.x, c.y, 14);
+    decir('Ven acá, ' + APODO + '. Un abrazo bien apretado.');
+    $('cnt').textContent = 'Abrazos: ' + abrazos + ' 🤗';
+  });
+  $('bMiel').addEventListener('click', function () {
+    var m = document.createElement('div'); m.className = 'miel-f'; m.textContent = '🍯'; $('bearwrap').appendChild(m);
+    setTimeout(function () { m.remove(); }, 1700); clase('salta', 650);
+    decir('Mmm, qué rica la miel. Pero tú eres más dulce, ' + APODO + '.');
+  });
+  $('bMsg').addEventListener('click', function () { var c = centro(); burst(c.x, c.y - 60, 6); decir(pick(NOTAS)); });
+  $('bDeseo').addEventListener('click', function () {
+    for (var i = 0; i < 3; i++) setTimeout(function () {
+      var f = document.createElement('div'); f.className = 'fugaz';
+      f.style.left = rnd(0, 45) + 'vw'; f.style.top = rnd(2, 22) + 'vh'; $('fx').appendChild(f);
+      setTimeout(function () { f.remove(); }, 1600);
+    }, i * 450);
+    decir('Pedí un deseo: estar contigo siempre, ' + APODO + '.');
+  });
+  $('bNoche').addEventListener('click', function () {
+    noche = !noche; document.body.classList.toggle('noche', noche); bear.classList.toggle('dorm', noche);
+    $('bNoche').textContent = noche ? '☀️' : '🌙';
+    decir(noche ? 'Buenas noches, ' + APODO + '. Sueña conmigo.' : '¡Buenos días, ' + APODO + '! Ya desperté pensando en ti.');
+  });
+  document.querySelectorAll('.flor').forEach(function (f) {
+    f.addEventListener('click', function (e) { var r = f.getBoundingClientRect(); frase(r.left + r.width / 2, r.top, pick(FRASES)); burst(r.left + r.width / 2, r.top, 5); });
+  });
+
+  // globos / cositas que suben (tocables)
+  function globo() {
+    var g = document.createElement('div');
+    g.className = 'globo'; g.textContent = pick(['🍯', '💛', '⭐', '🧸', '❤️', '🐝']);
+    g.style.left = rnd(4, 88) + 'vw'; g.style.fontSize = rnd(36, 56) + 'px';
+    g.style.setProperty('--sway', rnd(-50, 50) + 'px'); g.style.animationDuration = rnd(10, 15) + 's';
+    g.addEventListener('pointerdown', function (e) {
+      e.stopPropagation();
+      var r = g.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+      burst(x, y, 9); chispas(x, y, 12); frase(x, y, pick(FRASES)); g.remove();
+    });
+    $('globos').appendChild(g); setTimeout(function () { g.remove(); }, 15500);
+  }
+
+  var abierto = false;
+  $('splash').addEventListener('click', function () {
+    if (abierto) return;
+    abierto = true; latido();
+    $('splash').classList.add('out'); $('scene').classList.add('on');
+    setTimeout(function () { clase('wave', 3200); siguiente(); }, 1500);
+    setInterval(function () { if (abierto && !noche) siguiente(); }, 9000);
+    setTimeout(function () { globo(); setInterval(globo, 3400); }, 3000);
+  });
+  document.addEventListener('pointerdown', function (e) { if (abierto) burst(e.clientX, e.clientY, 5); });
+</script>
+</body>
+</html>
